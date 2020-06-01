@@ -1,76 +1,64 @@
-import java.util.Stack;
+import java.util.LinkedList;
 
 public class Main {
 	
 	public static void main(String[] args){
 		Main main = new Main();
+		AnimalShelter animalShelter = main.new AnimalShelter();
 		
-		SortedStack sortedStack = main.new SortedStack();
+		Pet mocha = new Pet("Mocha", AnimalType.DOG);
+		Pet mochi = new Pet("Mochi", AnimalType.DOG);
+		Pet cato = new Pet("Cato", AnimalType.CAT);
+		Pet coffee = new Pet("Coffee", AnimalType.CAT);
 		
-		sortedStack.mainStack.push(4);
-		sortedStack.mainStack.push(2);
-		sortedStack.mainStack.push(5);
-		sortedStack.mainStack.push(3);
-		sortedStack.sortStack();
-		
-		for (int i=0; i<4; i++){
-			System.out.println(sortedStack.mainStack.pop());
-		}
+		animalShelter.enqueue(mocha);	
+		animalShelter.enqueue(mochi);
+		animalShelter.enqueue(cato);
+		animalShelter.enqueue(coffee);
+	
+		System.out.println("Adopted cat: " + animalShelter.dequeueCat().name);
+		System.out.println("Adopted dog: " + animalShelter.dequeueDog().name);
 	}
 	
-	public class SortedStack {
-		
-		private int maxSoFar;
-		private int buffer;
-		private Stack<Integer> addStack;
-		public Stack<Integer> mainStack;
-		
-		public SortedStack() {
-			addStack = new Stack<Integer>();
-			mainStack = new Stack<Integer>();
+	public enum AnimalType {
+		DOG, CAT
+	}
+	
+	public static class Pet {
+
+		public Pet(String name, AnimalType animalType){
+			this.animalType = animalType;
+			this.name = name;
 		}
-		
-		/*
-		 * Sorts stack such that smallest items are on top
-		 */
-		public void sortStack(){
-			int mainMax = mainStack.size();
-			for (int i=0; i< mainMax; i++){
-				buffer = 0;
-				maxSoFar = Integer.MIN_VALUE;
-				shiftStack(i);
-			}
-			mainStack = addStack;
-		}
-		
-		private void shiftStack(int iteration) {
-			while (!mainStack.isEmpty()){
-				int temp = (int) mainStack.pop();
-				if (temp > maxSoFar){
-					if (maxSoFar != Integer.MIN_VALUE){
-						addStack.push(maxSoFar);
-						buffer++;
-					}
-					maxSoFar = temp;
-				} else {
-					addStack.push(temp);
-					buffer++;
-				}
-			}
+		public AnimalType animalType;
+		public String name;
 			
-			if (iteration > 0){
-				for (int i=0; i<buffer; i++){
-					int temp = (int) addStack.pop();
-					mainStack.push(temp);
-					
-				}
-				addStack.push(maxSoFar);
-			} else {
-				mainStack.push(maxSoFar);
-				Stack<Integer> temp = mainStack;
-				mainStack = addStack;
-				addStack = temp;
-			}
+	}
+	
+	public class AnimalShelter {
+
+		public LinkedList<Pet> queue;
+		
+		public AnimalShelter() {
+			queue = new LinkedList<Pet>();
+		}
+		
+		public void enqueue(Pet pet){
+			queue.add(pet);
+		}
+		
+		public Pet dequeue(){
+			return queue.getFirst();
+		}
+		
+		public Pet dequeueDog(){
+			return null;
+			
+		}
+		
+		public Pet dequeueCat(){
+			return null;
+			
 		}
 	}
 }
