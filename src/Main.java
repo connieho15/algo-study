@@ -38,6 +38,8 @@ public class Main {
 	public class AnimalShelter {
 
 		public LinkedList<Pet> queue;
+		public Pet firstCat;
+		public Pet firstDog;
 		
 		public AnimalShelter() {
 			queue = new LinkedList<Pet>();
@@ -48,17 +50,19 @@ public class Main {
 		}
 		
 		public Pet dequeue(){
+			if (queue.peekFirst().animalType.equals(AnimalType.DOG)){
+				while ()
+			}
 			return queue.getFirst();
 		}
 		
 		public Pet dequeueDog(){
-			return null;
 			
+			return firstDog;
 		}
 		
 		public Pet dequeueCat(){
-			return null;
-			
+			return firstCat;
 		}
 	}
 }
