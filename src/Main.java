@@ -1,68 +1,68 @@
-import java.util.LinkedList;
 
 public class Main {
 	
 	public static void main(String[] args){
 		Main main = new Main();
-		AnimalShelter animalShelter = main.new AnimalShelter();
-		
-		Pet mocha = new Pet("Mocha", AnimalType.DOG);
-		Pet mochi = new Pet("Mochi", AnimalType.DOG);
-		Pet cato = new Pet("Cato", AnimalType.CAT);
-		Pet coffee = new Pet("Coffee", AnimalType.CAT);
-		
-		animalShelter.enqueue(mocha);	
-		animalShelter.enqueue(mochi);
-		animalShelter.enqueue(cato);
-		animalShelter.enqueue(coffee);
-	
-		System.out.println("Adopted cat: " + animalShelter.dequeueCat().name);
-		System.out.println("Adopted dog: " + animalShelter.dequeueDog().name);
+		int[] input = new int[]{1,2,3,4,5,6,7};
+		MinimalTree tree = main.arrayToMinimalTree(input);
+		System.out.println(tree);
 	}
-	
-	public enum AnimalType {
-		DOG, CAT
-	}
-	
-	public static class Pet {
 
-		public Pet(String name, AnimalType animalType){
-			this.animalType = animalType;
-			this.name = name;
-		}
-		public AnimalType animalType;
-		public String name;
+	public MinimalTree arrayToMinimalTree(int[] input) {
+		int mid = input[(input.length/2)+1];
+		MinimalTree answer = new MinimalTree();
+		Node root = new Node(mid);
+		answer.root = root;
+		
+		int midpos = (input.length/2)+1;
+		int counter = 1;
+		while (true){
 			
-	}
-	
-	public class AnimalShelter {
-
-		public LinkedList<Pet> queue;
-		public Pet firstCat;
-		public Pet firstDog;
-		
-		public AnimalShelter() {
-			queue = new LinkedList<Pet>();
-		}
-		
-		public void enqueue(Pet pet){
-			queue.add(pet);
-		}
-		
-		public Pet dequeue(){
-			if (queue.peekFirst().animalType.equals(AnimalType.DOG)){
-				while ()
+			if (midpos-(2*counter)-1 > 0) {
+				Node leftroot = new Node(input[midpos-(2*counter)]);
+				Node leftleft = new Node(input[midpos-(2*counter)]-1);
+				Node leftright = new Node(input[midpos-(2*counter)]+1);
+			} else {
+				if (midpos-(2*counter) > 0) {
+					Node leftroot = new Node(input[midpos-(2*counter)+1]);
+					Node leftleft = new Node(input[midpos-(2*counter)]);
+				} else {
+					Node leftroot = new Node(input[midpos-(2*counter)+1]);
+				}
 			}
-			return queue.getFirst();
+
+			if (midpos+(2*counter)+1 < input.length) {
+				Node rightroot = new Node(input[midpos+(2*counter)]);
+				Node rightleft = new Node(input[midpos+(2*counter)]-1);
+				Node rightright = new Node(input[midpos+(2*counter)]+1);
+			} else {
+				if (input[input[midpos+(2*counter)]])
+			}
+
+			else {
+				break;
+			}
+			counter++;
 		}
-		
-		public Pet dequeueDog(){
-			
-			return firstDog;
-		}
-		
-		public Pet dequeueCat(){
-			return firstCat;
+
+	return new MinimalTree();
+	} 
+
+	public class MinimalTree {
+		public Node root;
+
+		public MinimalTree() {
+
 		}
 	}
+
+	static class Node {
+        public int value;
+        public Node[] children;
+
+        public Node(int val) {
+			this.value = val;
+		}
+    }
+	
 }
